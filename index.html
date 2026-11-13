@@ -5,7 +5,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <title>RelayPulse v22.0 · 正在连接实时主控节点...</title>
+  <title>RelayPulse v22.1 · 正在连接实时主控节点...</title>
   <style>
     body { background:#090b10; color:#f1f5f9; font-family:-apple-system,BlinkMacSystemFont,sans-serif; display:flex; align-items:center; justify-content:center; height:100vh; margin:0; }
     .box { text-align:center; padding:32px; background:#11151f; border:1px solid rgba(255,255,255,0.1); border-radius:12px; max-width:500px; }
@@ -16,17 +16,17 @@
 </head>
 <body>
   <div class="box">
-    <div style="font-size:22px;font-weight:700;margin-bottom:8px;">⚡ RelayPulse v22.0 Carbon</div>
+    <div style="font-size:22px;font-weight:700;margin-bottom:8px;">⚡ RelayPulse v22.1 Carbon</div>
     <div id="statusText" style="font-size:13.5px;color:#cbd5e1;">正在获取最新实时加密隧道地址并自动进入工作台...</div>
     <div>
-      <a id="directBtn" class="btn" href="https://3781f93dff1d2e20-202-96-254-210.serveousercontent.com">🌐 进入公网/跨网段节点</a>
+      <a id="directBtn" class="btn" href="https://api.trycloudflare.com">🌐 进入公网/跨网段节点</a>
       <a id="lanBtn" class="btn btn-lan" href="http://192.168.50.13:4399">⚡ 同 Wi-Fi 局域网直连 (1ms)</a>
     </div>
-    <div class="sub">更新于: 2026-11-13T15:32:13.037Z<br/>若办公室开启了 Wi-Fi AP 隔离或您居家办公，系统将自动走加密公网通道。</div>
+    <div class="sub">更新于: 2026-11-13T16:04:02.466Z<br/>若办公室开启了 Wi-Fi AP 隔离或您居家办公，将自动走加密公网通道。</div>
   </div>
   <script>
     (async function() {
-      let targetUrl = "https://3781f93dff1d2e20-202-96-254-210.serveousercontent.com";
+      let targetUrl = "https://api.trycloudflare.com";
       try {
         const apiRes = await fetch("https://api.github.com/repos/pandarey0130-lab/relaypulse-portal/contents/endpoint.json?t=" + Date.now(), {
           cache: "no-store",
@@ -46,7 +46,7 @@
         if (rawRes.ok) {
           const data = await rawRes.json();
           if (data && data.lanUrl) document.getElementById("lanBtn").href = data.lanUrl;
-          if (data && data.url && targetUrl === "https://3781f93dff1d2e20-202-96-254-210.serveousercontent.com") {
+          if (data && data.url && targetUrl === "https://api.trycloudflare.com") {
             targetUrl = data.url;
             document.getElementById("directBtn").href = data.url;
           }
