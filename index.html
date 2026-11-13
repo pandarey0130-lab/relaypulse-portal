@@ -5,36 +5,39 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <title>RelayPulse · 正在连接实时主节点...</title>
+  <title>RelayPulse v22.1 · 正在连接实时主控节点...</title>
   <style>
     body { background:#090b10; color:#f1f5f9; font-family:-apple-system,BlinkMacSystemFont,sans-serif; display:flex; align-items:center; justify-content:center; height:100vh; margin:0; }
-    .box { text-align:center; padding:32px; background:#11151f; border:1px solid rgba(255,255,255,0.1); border-radius:12px; max-width:460px; }
-    .btn { display:inline-block; margin-top:14px; padding:8px 16px; background:#d97757; color:#fff; border-radius:8px; text-decoration:none; font-weight:600; font-size:13px; }
-    .sub { font-size:12px; color:#8b9bb4; margin-top:8px; }
+    .box { text-align:center; padding:32px; background:#11151f; border:1px solid rgba(255,255,255,0.1); border-radius:12px; max-width:500px; }
+    .btn { display:inline-block; margin:14px 6px 0; padding:9px 16px; background:#d97757; color:#fff; border-radius:8px; text-decoration:none; font-weight:600; font-size:13px; }
+    .btn-lan { background:#10b981; }
+    .sub { font-size:12px; color:#8b9bb4; margin-top:10px; line-height:1.6; }
   </style>
 </head>
 <body>
   <div class="box">
-    <div style="font-size:22px;font-weight:700;margin-bottom:8px;">⚡ RelayPulse</div>
-    <div id="statusText" style="font-size:13.5px;color:#cbd5e1;">正在实时获取最新加密隧道地址并自动跳转...</div>
-    <div class="sub">本机访问可直接点击: <a href="http://localhost:4399" style="color:#34d399;">http://localhost:4399</a> · 局域网: <a href="http://192.168.50.13:4399" style="color:#60a5fa;">http://192.168.50.13:4399</a></div>
-    <a id="directBtn" class="btn" href="https://3b893b2376af64.lhr.life">🚀 立即进入公网节点</a>
+    <div style="font-size:22px;font-weight:700;margin-bottom:8px;">⚡ RelayPulse v22.1 Carbon</div>
+    <div id="statusText" style="font-size:13.5px;color:#cbd5e1;">正在获取最新实时加密隧道地址并自动进入工作台...</div>
+    <div>
+      <a id="directBtn" class="btn" href="https://myself-marijuana-benjamin-wma.trycloudflare.com">🌐 进入公网/跨网段节点</a>
+      <a id="lanBtn" class="btn btn-lan" href="http://192.168.50.13:4399">⚡ 同 Wi-Fi 局域网直连 (1ms)</a>
+    </div>
+    <div class="sub">更新于: 2026-11-13T10:26:48.851Z<br/>若办公室开启了 Wi-Fi AP 隔离或您居家办公，将自动走加密公网通道。</div>
   </div>
   <script>
     (async function() {
-      const fallbackUrl = "https://3b893b2376af64.lhr.life";
+      let targetUrl = "https://myself-marijuana-benjamin-wma.trycloudflare.com";
       try {
-        // Fetch live un-cached endpoint via GitHub API first (0-second CDN delay!)
         const apiRes = await fetch("https://api.github.com/repos/pandarey0130-lab/relaypulse-portal/contents/endpoint.json?t=" + Date.now(), {
           cache: "no-store",
           headers: { "Accept": "application/vnd.github.v3.raw" }
         });
         if (apiRes.ok) {
           const data = await apiRes.json();
+          if (data && data.lanUrl) document.getElementById("lanBtn").href = data.lanUrl;
           if (data && data.url) {
+            targetUrl = data.url;
             document.getElementById("directBtn").href = data.url;
-            window.location.replace(data.url);
-            return;
           }
         }
       } catch (e) {}
@@ -42,14 +45,14 @@
         const rawRes = await fetch("./endpoint.json?t=" + Date.now(), { cache: "no-store" });
         if (rawRes.ok) {
           const data = await rawRes.json();
-          if (data && data.url) {
+          if (data && data.lanUrl) document.getElementById("lanBtn").href = data.lanUrl;
+          if (data && data.url && targetUrl === "https://myself-marijuana-benjamin-wma.trycloudflare.com") {
+            targetUrl = data.url;
             document.getElementById("directBtn").href = data.url;
-            window.location.replace(data.url);
-            return;
           }
         }
       } catch (e) {}
-      window.location.replace(fallbackUrl);
+      window.location.replace(targetUrl);
     })();
   </script>
 </body>
