@@ -19,14 +19,14 @@
     <div style="font-size:22px;font-weight:700;margin-bottom:8px;">⚡ RelayPulse v22.1 Carbon</div>
     <div id="statusText" style="font-size:13.5px;color:#cbd5e1;">正在获取最新实时加密隧道地址并自动进入工作台...</div>
     <div>
-      <a id="directBtn" class="btn" href="https://api.trycloudflare.com">🌐 进入公网/跨网段节点</a>
+      <a id="directBtn" class="btn" href="https://ee3f395a6d5137f8-202-96-254-210.serveousercontent.com">🌐 进入公网/跨网段节点</a>
       <a id="lanBtn" class="btn btn-lan" href="http://192.168.50.13:4399">⚡ 同 Wi-Fi 局域网直连 (1ms)</a>
     </div>
-    <div class="sub">更新于: 2026-11-13T10:53:36.966Z<br/>若办公室开启了 Wi-Fi AP 隔离或您居家办公，将自动走加密公网通道。</div>
+    <div class="sub">更新于: 2026-11-13T10:53:45.262Z<br/>若办公室开启了 Wi-Fi AP 隔离或您居家办公，将自动走加密公网通道。</div>
   </div>
   <script>
     (async function() {
-      let targetUrl = "https://api.trycloudflare.com";
+      let targetUrl = "https://ee3f395a6d5137f8-202-96-254-210.serveousercontent.com";
       try {
         const apiRes = await fetch("https://api.github.com/repos/pandarey0130-lab/relaypulse-portal/contents/endpoint.json?t=" + Date.now(), {
           cache: "no-store",
@@ -46,7 +46,7 @@
         if (rawRes.ok) {
           const data = await rawRes.json();
           if (data && data.lanUrl) document.getElementById("lanBtn").href = data.lanUrl;
-          if (data && data.url && targetUrl === "https://api.trycloudflare.com") {
+          if (data && data.url && targetUrl === "https://ee3f395a6d5137f8-202-96-254-210.serveousercontent.com") {
             targetUrl = data.url;
             document.getElementById("directBtn").href = data.url;
           }
